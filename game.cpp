@@ -2,6 +2,7 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+#include <ctime>
 
 using namespace std;
 
@@ -33,6 +34,121 @@ void changeColor(string text, bool pilihan){
     setColor(7);
 }
 
+
+struct BulletStack
+{
+    int top;
+    int bullet[10];
+
+    void init()
+    {
+        top = -1;
+    }
+
+    bool isEmpty()
+    {
+        return top == -1;
+    }
+
+    void push(int value)
+    {
+        top++;
+        bullet[top] = value;
+    }
+
+    int pop()
+    {
+        int value = bullet[top];
+        top--;
+
+        return value;
+    }
+
+    int totalBullet()
+    {
+        return top + 1;
+    }
+
+    void peekBullet()
+    {
+        cout << "\nSCANNER MEMBACA...\n";
+
+        Sleep(1000);
+
+        if (bullet[top] == 1)
+        {
+            setColor(12);
+            cout << "PELURU SELANJUTNYA : LIVE\n";
+        }
+        else
+        {
+            setColor(8);
+            cout << "PELURU SELANJUTNYA : BLANK\n";
+        }
+
+        setColor(7);
+    }
+};
+
+// ========================================
+// antrian musuhnya
+// ========================================
+
+struct EnemyQueue
+{
+    string enemy[10];
+
+    int front;
+    int rear;
+
+    void init()
+    {
+        front = 0;
+        rear = -1;
+    }
+
+    void enqueue(string name)
+    {
+        rear++;
+        enemy[rear] = name;
+    }
+
+    string dequeue()
+    {
+        string musuh = enemy[front];
+        front++;
+
+        return musuh;
+    }
+
+    bool isEmpty()
+    {
+        return front > rear;
+    }
+};
+
+// ========================================
+// story dan bracket musuhnya
+// ========================================
+
+struct EnemyTree
+{
+    string enemyName;
+
+    EnemyTree *left;
+    EnemyTree *right;
+};
+
+EnemyTree *createEnemyNode(string name)
+{
+    EnemyTree *node = new EnemyTree;
+
+    node->enemyName = name;
+    node->left = NULL;
+    node->right = NULL;
+
+    return node;
+}
 
 //Fungsi UI Battle
 void tampilkanUI(int pilihan)
