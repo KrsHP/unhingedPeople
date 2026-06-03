@@ -219,6 +219,7 @@ string generateRandomItem(bool &rareSpawned)
         spawnRare = true;
         rareSpawned = true;
     }
+};
 
     // ========================================
     // simpan item yang cocok
